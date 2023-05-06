@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.9;
+pragma solidity 0.8.18;
 
 /*
        REQUIREMENTS
@@ -32,9 +32,13 @@ contract GauravToken {
 
     // burn function
     function burn(address _address , uint _value) public {
+        require(msg.sender == _address,"You cant burn tokens of someone else !");
         if(balances[_address] >= _value) {
             totalSupply -= _value;
             balances[_address] -= _value;
+        }
+        else {
+            revert("You are trying to burn more tokens than the tokens you own!");
         }
     }
 }
